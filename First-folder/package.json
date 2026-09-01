@@ -1,15 +1,11 @@
 {
-  "name": "backend-practice",
+  "name": "first-folder",
   "version": "1.0.0",
-  "description": "Hello here will i practice the backend in a happy mode",
+  "description": "hello there here i practice my backend here",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Amir Moavia",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.2.1"
-  }
+  "license": "ISC"
 }
