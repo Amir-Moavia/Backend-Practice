@@ -1,15 +1,20 @@
 {
-  "name": "back-end",
+  "name": "first-folder",
   "version": "1.0.0",
-  "description": "hello there here is the backend",
+  "description": "hello there here i practice my backend here",
   "main": "server.js",
-  "type": "module" ,
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Amir Moavia",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
