@@ -25,11 +25,12 @@ function App() {
      <p>Jokes : {Jokes.length}</p>
 
      {
-        Jokes.map((Jokes,index) => {
+        Jokes.map((Jokes,index) => (
           <div key={Jokes.id}>
-            <h3>{}</h3>
+            <h3>{Jokes.setup}</h3>
+            <p>{Jokes.punchline}</p>
           </div>
-        })
+        ))
      }
     </>
   )
