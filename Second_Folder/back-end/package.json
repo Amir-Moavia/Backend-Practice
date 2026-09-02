@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "hello there here is the backend",
   "main": "server.js",
-  "type": "module",
+  "type": "module" ,
   "scripts": {
     "start": "node server.js"
   },
