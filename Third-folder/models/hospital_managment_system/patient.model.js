@@ -7,7 +7,7 @@ const patientSchema = new mongoose.Schema(
             required: true,
 
         },
-        age: {
+        age: { 
             type: Number,
             required: true,
             min: 0,
@@ -26,6 +26,10 @@ const patientSchema = new mongoose.Schema(
         emergencyContact: {
             type: String,
             required: true,
+        },
+        admittedIn: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Hospital",
         }
 
 
