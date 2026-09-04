@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const borrowSchema = new mongoose.Schema(
     {
         student: {
@@ -23,6 +24,20 @@ const borrowSchema = new mongoose.Schema(
             type: String,
             enum: ["BORROWED", "RETURNED", "OVERDUE"],
             default: "BORROWED",
+        },
+        
+        returnDate: {
+            type: Date,
+            required: true,
+        },
+        fineAmount: {
+            type: Number,
+            default: 0,
+            min: 0, 
+        },
+        isFinePaid: {
+            type: Boolean,
+            default: false,
         },
 
     },{timestamps: true}

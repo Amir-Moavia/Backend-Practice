@@ -13,7 +13,27 @@ const studentSchema = new mongoose.Schema(
         },
         grade: {
             type: Number,
-        }
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
+        phone: {
+            type: String,
+            trim: true,
+        },
+        isSuspended: {
+            type: Boolean,
+            default: false,
+        },
+        maxAllowedBooks: {
+            type: Number,
+            default: 3,
+            max: 5,
+        },
 
     },{timestamps: true}
 );
