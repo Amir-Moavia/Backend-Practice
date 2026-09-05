@@ -20,6 +20,7 @@ const studentSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
+            match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         },
         phone: {
             type: String,
