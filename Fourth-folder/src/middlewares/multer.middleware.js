@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     },
 
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + raw.toString('hex'));
+        cb(null, file.originalname);
     }
 
 });
