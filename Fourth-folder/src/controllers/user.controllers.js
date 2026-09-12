@@ -5,7 +5,9 @@ import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 
 const registerUser = asyncHandler( async (req, res) => {
-    
+
+
+    // step 1: getting user details from frontend 
     const { fullName, email, username, password } = req.body;
     //this is equal to 
     // const fullName = req.body.fullName;
@@ -38,6 +40,9 @@ const registerUser = asyncHandler( async (req, res) => {
     // }
 
     // we can also write the above code as 
+
+
+    // step 2: validation if not empty
     if ([fullName,email,username,password].some((field) => 
     {
        return field?.trim() === "";
@@ -45,6 +50,7 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(400, "All fields are required!!");
     }
 
+    // step 3: check if user already exists 
     const existedUser = User.findOne(
         {
             $or: [{ username }, { email }]
@@ -57,6 +63,7 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "The username or email already existed");
     }
 
+    // step 4: check for images / check for avatar
     const avatarLocalPath = req.files?.avatar[0]?.path;
     console.log(avatarLocalPath);
     const coverImageLocalPath = req.files?.coverImage[0]?.path;
@@ -66,13 +73,17 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(400, "Avatar file is required");
     }
 
+    // step 5: upload them to cloudinary 
     const avatar = await uploadOnCloudinary(avatarLocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
+    // check if user is uploaded successfully or not
     if (!avatar) {
         throw new ApiError(400, "Avatar is required !!");
     }
 
+    
+   // step 6: create user object  / create entry in database
    const user = await User.create(
         {
             fullName,
@@ -84,13 +95,21 @@ const registerUser = asyncHandler( async (req, res) => {
         }
     )
 
+    // step 7: removing the password and refresh tokens from response
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     );
+
+    // step 8: check for user creation
     if (!createdUser)
     {
         throw new ApiError(500, "Something went Wrong regester failed")
     }
+
+//   step 9: return response
+    return res.status(201).json(
+        new ApiResponse(200, createdUser, "User registered Successfully")
+    );
 
 
     
