@@ -21,10 +21,7 @@ const registerUser = asyncHandler( async (req, res) => {
     // here if the clint sent the request then the data will come to the server but
     // over there the clint will be waiting for the response so we will add
 
-    res.status(200).json({
-        success: true,
-        message: "Data received successfully!"
-    });
+ 
 
     // if (fullName === "") {
     //     throw new ApiError(400, "Full Name Is Required!!!" );   
@@ -62,6 +59,8 @@ const registerUser = asyncHandler( async (req, res) => {
     {
         throw new ApiError(409, "The username or email already existed");
     }
+    console.log(req.files);
+    
 
     // step 4: check for images / check for avatar
     const avatarLocalPath = req.files?.avatar[0]?.path;
