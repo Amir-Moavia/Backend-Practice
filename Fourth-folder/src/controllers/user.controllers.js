@@ -16,7 +16,7 @@ const registerUser = asyncHandler( async (req, res) => {
     // const password = req.body.password;
 
 
-    console.log("Email : ", email);
+    //console.log("Email : ", email);
 
     // here if the clint sent the request then the data will come to the server but
     // over there the clint will be waiting for the response so we will add
@@ -53,20 +53,31 @@ const registerUser = asyncHandler( async (req, res) => {
             $or: [{ username }, { email }]
         }
     )
-    console.log(existedUser);
+   // console.log(existedUser);
 
     if(existedUser)
     {
         throw new ApiError(409, "The username or email already existed");
     }
-    console.log(req.files);
+   // console.log(req.files);
     
 
     // step 4: check for images / check for avatar
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    console.log(avatarLocalPath);
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
-    console.log(coverImageLocalPath);
+    //console.log(avatarLocalPath);
+    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    //console.log(coverImageLocalPath);
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0)
+    {
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
+
+
+
+
+
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is required");
