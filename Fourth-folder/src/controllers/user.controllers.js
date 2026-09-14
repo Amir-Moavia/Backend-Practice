@@ -145,6 +145,16 @@ const registerUser = asyncHandler( async (req, res) => {
     
 });
 
+/* steps for the login User
+     1. req body => data
+     2. username or email check
+     3. find the user 
+     4. password check
+     5. access and refresh tokens
+     6. send cookie
+
+*/
+
 const loginUser = asyncHandler( async (req, res) => {
     const {email, username, password} = req.body;
     if(!username || !email)
