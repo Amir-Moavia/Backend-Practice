@@ -5,7 +5,7 @@ import { User } from "../models/user.model.js";
 
 
 // verify if the user is present or not
-export const verifyJWT = asyncHandler(async(req, res, next) => {
+export const verifyJWT = asyncHandler(async(req, _, next) => {
 try {
     
         // to take token access so here the req have the access to the cookie
