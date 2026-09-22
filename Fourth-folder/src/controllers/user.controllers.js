@@ -237,7 +237,7 @@ const logoutUser = asyncHandler(async(req, res) =>
     .clearCookie("accessToken", options)
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logged outed Successfully"))
-})
+});
 
 
 const refreshAccessToken = asyncHandler(async (req, res) =>
@@ -287,6 +287,22 @@ const refreshAccessToken = asyncHandler(async (req, res) =>
     } catch (error) {
         throw new ApiError(401, error?.message || "Invalid Refresh Token")
     }
+});
+
+const changeCurrentPassword = asyncHandler( async (req, res) =>
+{
+    const  { oldPassword, newPassword } = req.body;
+
+    const user = await User.findById(req.user?._id);
+
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+
+    if (!isPasswordCorrect) {
+        throw new ApiError(400, "Invalid old Password");
+    }
+
+    
+   
 })
 
 
