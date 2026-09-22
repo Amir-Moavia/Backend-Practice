@@ -291,7 +291,12 @@ const refreshAccessToken = asyncHandler(async (req, res) =>
 
 const changeCurrentPassword = asyncHandler( async (req, res) =>
 {
-    const  { oldPassword, newPassword } = req.body;
+    const  { oldPassword, newPassword, conformPassword } = req.body;
+
+    if (!(newPassword === conformPassword)) {
+        throw new ApiError(401, "The New Password and Conform Password is not same");
+    }
+
 
     const user = await User.findById(req.user?._id);
 
@@ -301,10 +306,58 @@ const changeCurrentPassword = asyncHandler( async (req, res) =>
         throw new ApiError(400, "Invalid old Password");
     }
 
-    
+    user.password = newPassword;
+    await user.save( {validateBeforeSave: false} )
+
+
+    return res.status(200)
+    .json(new ApiResponse(200, {} , "Password Changed Successfully"));
    
 })
 
+const getCurrentUser = asyncHandler( async (req, res) =>
+{
+    return res
+    .status(200)
+    .json(200, req.user , "Current User Fetched Successfully");
+});
 
 
-export { registerUser ,loginUser ,logoutUser, refreshAccessToken};  
+const updateAccountDetails = asyncHandler( async (req, res) =>
+ {
+    const { fullName, email } = req.body;
+
+    if (!fullName || !email) {
+        throw new ApiError(400, "Username or email is required")
+    }
+
+    const user = User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                fullName : fullName,
+                email,
+            }
+        },
+        {new: true}
+    ).select("-password");
+
+    return res
+    .status(200)
+    .json(new ApiResponse(
+        200,
+        user,
+        "Account Information Updated Successfully",
+    ))
+ })
+
+
+
+export { registerUser,
+    loginUser,
+    logoutUser,
+    refreshAccessToken,
+    changeCurrentPassword,
+    getCurrentUser,
+    updateAccountDetails,
+};  
