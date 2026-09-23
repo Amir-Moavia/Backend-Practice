@@ -383,21 +383,21 @@ const updateAccountDetails = asyncHandler( async (req, res) =>
 
     return res.status(200)
     .json(
-        new ApiResponse(200, "Avatat is Updated Successfully")
+        new ApiResponse(200, user ,"Avatar is Updated Successfully")
     )
  });
 
   const updateUserCoverImage = asyncHandler( async(req,res)=> {
     // to show the file path
-    const avatarLocalPath = req.file?.path;
+    const coverImageLocalPath = req.file?.path;
 
-    if(!avatarLocalPath)
+    if(!coverImageLocalPath)
     {
         throw new ApiError(400, "Cover Image is Required")
     }
 
     //to upload on the cloudinary
-    const coverImage = await uploadOnCloudinary(avatarLocalPath);
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
     // check if the url is not present for the avatat on cloudinary
     if (!coverImage.url) {
@@ -419,7 +419,7 @@ const updateAccountDetails = asyncHandler( async (req, res) =>
     return res.status(200)
     .json(
         200,
-        new ApiResponse(200, "Cover Image is Updated Successfully")
+        new ApiResponse(200, user ,"Cover Image is Updated Successfully")
 
     )
  })
