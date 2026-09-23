@@ -322,7 +322,7 @@ const getCurrentUser = asyncHandler( async (req, res) =>
     .json(200, req.user , "Current User Fetched Successfully");
 });
 
-
+// for text based data
 const updateAccountDetails = asyncHandler( async (req, res) =>
  {
     const { fullName, email } = req.body;
@@ -331,7 +331,7 @@ const updateAccountDetails = asyncHandler( async (req, res) =>
         throw new ApiError(400, "Username or email is required")
     }
 
-    const user = User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set: {
@@ -351,6 +351,79 @@ const updateAccountDetails = asyncHandler( async (req, res) =>
     ))
  })
 
+// for files
+ const updateUserAvatar = asyncHandler( async(req,res)=> {
+    // to show the file path
+    const avatarLocalPath = req.file?.path;
+
+    if(!avatarLocalPath)
+    {
+        throw new ApiError(400, "Avatar is Required")
+    }
+
+    //to upload on the cloudinary
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+
+    // check if the url is not present for the avatat on cloudinary
+    if (!avatar.url) {
+        throw new ApiError(400, "Error while uploading on cloudinary");
+
+    };
+
+    // update on database
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                avatar: avatar.url, // Ensure this matches the field in your User schema
+            },
+        },
+        { new: true }
+    ).select("-password");
+
+    return res.status(200)
+    .json(
+        new ApiResponse(200, "Avatat is Updated Successfully")
+    )
+ });
+
+  const updateUserCoverImage = asyncHandler( async(req,res)=> {
+    // to show the file path
+    const avatarLocalPath = req.file?.path;
+
+    if(!avatarLocalPath)
+    {
+        throw new ApiError(400, "Cover Image is Required")
+    }
+
+    //to upload on the cloudinary
+    const coverImage = await uploadOnCloudinary(avatarLocalPath);
+
+    // check if the url is not present for the avatat on cloudinary
+    if (!coverImage.url) {
+        throw new ApiError(400, "Error while uploading on cloudinary");
+
+    };
+
+    // update on database
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                coverImage: coverImage.url, // Ensure this matches the field in your User schema
+            },
+        },
+        { new: true }
+    ).select("-password");
+
+    return res.status(200)
+    .json(
+        200,
+        new ApiResponse(200, "Cover Image is Updated Successfully")
+
+    )
+ })
+
 
 
 export { registerUser,
@@ -360,4 +433,6 @@ export { registerUser,
     changeCurrentPassword,
     getCurrentUser,
     updateAccountDetails,
+    updateUserAvatar,
+    updateUserCoverImage
 };  
