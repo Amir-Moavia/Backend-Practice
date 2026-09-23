@@ -4,6 +4,7 @@ import { ApiError } from '../utils/apiError.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
+import { v2 as cloudinary } from "cloudinary";
 
 
 const generateAccessAndRefreshToken = async(userId) =>
@@ -96,10 +97,6 @@ const registerUser = asyncHandler( async (req, res) => {
     {
         coverImageLocalPath = req.files.coverImage[0].path;
     }
-
-
-
-
 
 
     if (!avatarLocalPath) {
@@ -422,7 +419,7 @@ const updateAccountDetails = asyncHandler( async (req, res) =>
         new ApiResponse(200, user ,"Cover Image is Updated Successfully")
 
     )
- })
+ });
 
 
 
