@@ -31,7 +31,7 @@ Suggestions, resource recommendations, and improvements are always welcome! Feel
 ---
 
 ### What i have added to the notion sheet recently
-->
+->  Added Concepts About the event Loops , clousers , difference between asynchronous and synchronous javascript
 
 
 ---
