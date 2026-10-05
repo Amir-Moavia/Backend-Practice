@@ -31,7 +31,7 @@ Suggestions, resource recommendations, and improvements are always welcome! Feel
 ---
 
 ### What i have added to the notion sheet recently
-->  Added notes about npm, package.json , modules , and Envirnmental Variables
+->  Added File System, Streams, Buffers , Worker Threads and more
 
 
 ---
