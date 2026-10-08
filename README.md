@@ -31,7 +31,7 @@ Suggestions, resource recommendations, and improvements are always welcome! Feel
 ---
 
 ### What i have added to the notion sheet recently
-->  Worked on Express Js -> Express setup, Express Application Structure, Express Routes
+->  added the whole model schema for e-commerce website 
 
 
 ---
