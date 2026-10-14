@@ -1,1 +1,1 @@
-export const DB_NAME = "PracticeMongo";
+export const DB_NAME = "PracticeDB";
