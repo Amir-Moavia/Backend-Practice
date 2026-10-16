@@ -15,8 +15,8 @@ const connectDB = async () => {
         });
         
     } catch (error) {
-        console.log("Mongoo DB error ", error);
-        process.exit(1)
+        console.log("Mongoo DB error ", error.message);
+        process.exit(1) // or throw error;
     }   
 }
 
