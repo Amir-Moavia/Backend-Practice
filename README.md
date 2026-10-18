@@ -31,7 +31,7 @@ Suggestions, resource recommendations, and improvements are always welcome! Feel
 ---
 
 ### What i have added to the notion sheet recently
-->  added the whole model schema for e-commerce website 
+->  Added about the cors, models , middlewares and more
 
 
 ---
