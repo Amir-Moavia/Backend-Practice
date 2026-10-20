@@ -31,7 +31,7 @@ Suggestions, resource recommendations, and improvements are always welcome! Feel
 ---
 
 ### What i have added to the notion sheet recently
-->  Added about the cors, models , middlewares and more
+->  Added about the mongoo db and error handling in the backend 
 
 
 ---
